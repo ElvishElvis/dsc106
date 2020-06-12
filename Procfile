@@ -1,1 +1,1 @@
-dataset=TensorDataset(features.transpose(3,2),targets)
+web: sh setup.sh && streamlit run app.py

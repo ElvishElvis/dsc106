@@ -21,7 +21,7 @@ for i in range(1,3):
 df = pd.read_csv('US_graduate_schools_admission_parameters_dataset.csv')
 corr=df.drop('Serial No.', axis=1).corr()
 
-
+df['Research']=df['Research'].apply(lambda a: 'have research' if a==1 else 'no reserach')
 
 
 sns.set(style="white")
@@ -46,27 +46,29 @@ st.pyplot()
 
 
 st.write('### HIGHER GPA, BETTER CHANCE?')
-f, ax = plt.subplots(figsize=(8,3))
+f, ax = plt.subplots(figsize=(8,6))
 sns.lineplot(df['CGPA'],df['Chance of Admit '],linewidth=2.5)
 plt.xticks(rotation=90)
 plt.show()
+
 f.savefig('gpa line graph',bbox_inches='tight')
 st.pyplot()
 
 
 st.write('### WHAT ABOUT RATING OF UNDERGRADUATE SCHOOL?')
 
-f, ax = plt.subplots(figsize=(8,3))
+f, ax = plt.subplots(figsize=(8,6))
 sns.lineplot(df['University Rating'],df['Chance of Admit '],linewidth=2.5)
 plt.xticks(rotation=90)
 plt.show()
+
 f.savefig('rating line graph',bbox_inches='tight')
 st.pyplot()
 
 st.write('### BETTER COLLEGE->HIGHER GPA->GREATER CHANCE OF GET INTO GRAD-SCHOOL？')
 
 
-f, ax = plt.subplots(figsize=(8,3))
+f, ax = plt.subplots(figsize=(8,6))
 sns.scatterplot(y="Chance of Admit ", x="CGPA",
                 hue="University Rating",
                 data=df)
@@ -162,6 +164,19 @@ st.altair_chart(c, use_container_width=True)
 # plt.show()
 
 
+st.write('### CONCLUSTION:')
+st.write('1. All of the feature have almost a strong correlation with the admission rate. GPA is the single most \
+important feature that correlated to the chance of admission, while the research is relatively least related \
+to the admission, one possibility is that people with research experience are applying for better school witch has lower admission possibility')
+st.write('2. Student with stronger standard score would also tend to be stronger in other aspect. For example, student with higher GPA have a \
+	much higher rate of having research experience. Thus the competition among the top students is very fierce since they would tend to excel \
+	in multi aspects. ')
+st.write('3. From the result of the ensemble variable correlation, we can see that both of the ensemble variables have a strong correlation \
+	with the admission rate, with a slightly stronger correlation to the standard score.')
+
+
+
+
 
 
 st.write('### Top Data Science Master Program arosss United States')
@@ -174,7 +189,7 @@ st.text('Source: https://www.datasciencedegreeprograms.net/rankings/masters-data
 
 
 st.write('### Questionaire for Data Science major outcome')
-
+st.write('We would like to invite you to fill out the Questionaire for future student of UCSD undergraduate data science major outcome')
 
 option = st.selectbox('What is your outcome after graduation',('Work', 'Gradudate School', 'Have not decide'))
 
@@ -190,6 +205,9 @@ com = st.text_input('If you are going to work, please enter the name of company 
 
 
 st.write('#### Please check if you agree to have those information for further research')
+
+
+st.write('Sorry if it is too slow to run the website when click/select anything below')
 agree = st.checkbox('I agree')
 if agree:
 	st.write('Great! Thank you!')
