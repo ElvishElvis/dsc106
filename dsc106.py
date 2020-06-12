@@ -126,7 +126,7 @@ dk = pd.DataFrame(x_scaled)
 dk.columns=['Chance of Admit ','Standard_Score','Other Factors']
 # dk['Chance of Admit ']=dk['Chance of Admit '].apply(lambda a: 2 if a>0.75 else( 1 if a>0.5 else 0 ))
 
-st.write('### Normized Vectors Vs Admission Rate ')
+st.write('### Enemble Normized Vectors Vs Admission Rate ')
 
 st.write('Standard_Score: GRE, GPA, TOEFL')
 st.write('Other Factors: University Rating, Statement of Purpose, Letter of Recommendation, Research')
@@ -162,13 +162,54 @@ st.altair_chart(c, use_container_width=True)
 # plt.show()
 
 
+
+
 st.write('### Top Data Science Master Program arosss United States')
 df=pd.read_csv('college.csv')
 st.map(df)
-st.text('Source: http://www.mastersindatascience.org/schools/23-great-schools-with-masters-programs-in-data-science/')
+st.text('Source: https://www.datasciencedegreeprograms.net/rankings/masters-data-science/')
 # chart_data=pd.read_csv('norm.csv', index_col=0)
 
 # st.bar_chart(chart_data.to_numpy())
+
+
+st.write('### Questionaire for Data Science major outcome')
+
+
+option = st.selectbox('What is your outcome after graduation',('Work', 'Gradudate School', 'Have not decide'))
+
+GPA = st.text_input('What is your GPA of graduation (N/A) if do not want to answer ', '4.0')
+
+GRE = st.text_input('What is your GRE of graduation (N/A) if do not want to answer ', '340')
+
+title = st.text_input('If you are going to continuous education, please enter the name of school and program (N/A) if not apply', 'UCSD/ BSMS')
+
+com = st.text_input('If you are going to work, please enter the name of company and position (N/A) if not apply', 'Entegris/ Data Analyst')
+
+
+
+
+st.write('#### Please check if you agree to have those information for further research')
+agree = st.checkbox('I agree')
+if agree:
+	st.write('Great! Thank you!')
+
+
+
+if st.button('Inputed answer'):
+	st.write('Your outcome is ', option)
+	st.write('Your GPA is ', GPA)
+	st.write('Your GRE is ', GRE)
+
+	st.write('Your future work is ', com)
+
+	st.write('Your future school is ', title)
+
+
+st.write('#### Please check the information above')
+
+if st.button('submit'):
+	st.write('Thank you for your participation')
 
 
 
